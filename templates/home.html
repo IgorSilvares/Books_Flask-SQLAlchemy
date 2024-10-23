@@ -7,9 +7,11 @@
   </head>
   <body>
 
-    {% for book in books %}
-    <div> <h3>{{ book.title }}</h3>
-    </div>
+    {% for book in book_data %}
+        <div> 
+            <img src="{{ book.cover_url }}" alt="Book cover" style="width: 100px; height: 150px;">
+            <h3>{{ book.title }} by {{ book.author }}</h3>
+        </div>
     {% endfor %}
 
   </body>
