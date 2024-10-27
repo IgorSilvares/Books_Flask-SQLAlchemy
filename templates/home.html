@@ -7,12 +7,43 @@
   </head>
   <body>
 
-    {% for book in book_data %}
-        <div> 
-            <img src="{{ book.cover_url }}" alt="Book cover" style="width: 100px; height: 150px;">
-            <h3>{{ book.title }} by {{ book.author }}</h3>
-        </div>
-    {% endfor %}
+
+
+    <form method="GET" action="/">
+      <input type="text" id="search" name="search" placeholder="Search...">
+      <button type="submit">Search</button>
+    </form>
+
+
+    <form method="GET" action="/">
+      <label for="sort_by">Sort by:</label>
+      <select id="sort_by" name="sort_by">
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+      </select>
+      <button type="submit">Sort</button>
+    </form>
+
+
+
+    {% if book_data %}
+      {% for book in book_data %}
+      <div>
+          <img src="{{ book.cover_url }}" alt="Book cover" style="width: 100px; height: 150px;">
+          <h3>{{ book.title }} by {{ book.author }}</h3>
+          <form method="POST" action="/book/{{ book.id }}/delete">
+            {{ form.hidden_tag() }}
+            {{ form.book_id(value=book.id) }}
+            <button type="submit">Delete Book</button>
+        </form>
+      </div>
+      {% endfor %}
+      
+    {% else %}
+      <p>No books found.</p>
+    {% endif %}
+
+
 
   </body>
 </html>
